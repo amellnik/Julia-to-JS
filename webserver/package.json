@@ -1,0 +1,17 @@
+{
+  "name": "julia2js",
+  "version": "0.0.1",
+  "description": "Backend server for doing funky stuff with julia and emscripten",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "A. Mellnik",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "fs": "0.0.1-security",
+    "tmp": "0.0.33"
+  }
+}

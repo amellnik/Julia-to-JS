@@ -1,27 +1,37 @@
 # What's this?
 
-This repository contains a Dockerfile for compiling a trivial Julia function to Javascript via Emscripten.  It will be updated with increasingly-complex demonstrations as people figure them out.
+This repository is a harebrained attempt to create a web application that takes Julia code, converts it to LLVM bitcode (using Tom Short's [ExportWebAssembly.jl](https://github.com/tshort/ExportWebAssembly.jl)), then uses [Emscripten](http://kripken.github.io/emscripten-site/index.html) to convert it to javascript which you can then test in the browser.  
 
-The current Dockerfile was developed by Tom Short.  It compiles the function:
+
+## Here's the plan
+
+The front-end will present the user with a large textarea input (it would be great if it had syntax highlighting) for a julia script.  The user pastes in something like
 
 ```julia
-@Base.ccallable Float32 myabs(x::Float32) = abs(x)
+using StaticArrays
+struct X
+    a::Float64
+    b::Float64
+end
+
+function fun(a)
+    x = SVector(1., 2., a)
+    y = SVector(a, a, 3.)
+    z = X(a, 2a)
+    return sum(x + 2y) - z.b + z.a
+end
 ```
 
-## Try it out the quick way
+and clicks submit.  This posts the contents of the function to the back-end, which saves it in the container's temporary filesystem.  This file is converted to `.bc` and then to `.js` (eventually `.wasm`), before being incorporated in a webpage which is returned to the user.
 
-Install docker, node and julia.  Run `julia build_and_test.jl`.
+## What it does now
 
-## Try it out with more detail
+Currently it exposes a POST endpoint at `/incomming` that returns the result `.js` as text.
 
-Install docker, then build the image with
+If you want to try this yourself don't forget to run `npm install` in the webserver directory before building the dockerfile.
 
-```
-docker build -t jfs .
-```
+## Handy things to run
+* `docker run --rm -it -p 5000:5000 jfs`
 
-Run the container to generate build artifacts in `/out`:
-
-```
-docker run --rm --mount type=bind,source="$(pwd)"/out,target=/out jfs
-```
+## TODO:
+* Make sure there's no spaces in the string passed for the `Tuple`.  
