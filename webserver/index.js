@@ -11,12 +11,26 @@ var child;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function(req, res, next) {
+  var allowedOrigins = ['http://localhost:4200'];
+  var origin = req.headers.origin;
+  if (origin) {console.log('Origin: ' + origin)}
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  return next();
+})
+
 app.set('port', (process.env.PORT || 5000));
 
 
 app.post('/incomming', function(req, res) {
   // First make sure we have values for the three required fields
   // script, function, types
+  console.log('Script: ' + req.body.script);
+  console.log('Function: ' + req.body.function);
+  console.log('Types: ' + req.body.types);
   (req.body.script && req.body.function && req.body.types ) || res.status(500).send('You need to provide a script, function and types!')
   var name = tmp.tmpNameSync();
   console.log('Created temporary filename: ', name + '.jl');

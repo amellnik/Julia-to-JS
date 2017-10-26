@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class ApiService {
 
   private headers = new Headers({
-    'Content-Type': 'application-x-www-form-urlencoded'
+    'Content-Type': 'application/x-www-form-urlencoded'
   });
   private options = new RequestOptions({
     headers: this.headers
@@ -19,7 +19,7 @@ export class ApiService {
   submitForJS(jlCode:string, jlFunction:string, jlTypes:string) {
     let body = `script=${encodeURIComponent(jlCode)}&function=${encodeURIComponent(jlFunction)}&types=${encodeURIComponent(jlTypes)}`;
     return this.http.post(environment.api_base + '/incomming', body, this.options)
-      .map(res => res.json())
+      .map(res => res.text())
   }
 
 
