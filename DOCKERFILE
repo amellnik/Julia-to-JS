@@ -32,3 +32,5 @@ COPY /webserver setup.jl /
 
 # Right now this has to run every time the server changes which is annoying
 RUN julia /setup.jl
+
+CMD node index.js

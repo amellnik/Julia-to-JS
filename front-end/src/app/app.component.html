@@ -1,0 +1,38 @@
+<div class="main-container">
+  <header class="header header-6">
+    <div class="branding">
+      <a href="javascript://" class="nav-link">
+        <clr-icon shape="link"></clr-icon>
+        <span class="title">Julia to JS</span>
+      </a>
+    </div>
+  </header>
+  <div class="content-container">
+    <div class="content-area">
+      <h1>Here's how this works</h1>
+      <p>
+        Write Julia code to define a function in the box below and supply the name of the function as well as the types of the arguments.  Click the submit button and we'll see if we can convert it into javascript.
+      </p>
+      <p>
+        If you're not feeling creative you can also click <a href="javascript://" (click)="loadDemo()">here</a> to load a simple example.
+      </p>
+      <form>
+        <section class="form-block">
+          <div class="form-group">
+            <label for="jlInput">Julia code:</label>
+            <textarea id="jlInput" rows="15" [(ngModel)]="jlCode" [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="aForm_1">Function name:</label>
+            <input type="text" id="aForm_1" placeholder="myfun" size="45" [(ngModel)]="jlFunction" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="aForm_2">Argument types:</label>
+            <input type="text" id="aForm_2" placeholder="Float32,Int32" size="45" [(ngModel)]="jlTypes" [ngModelOptions]="{standalone: true}">
+          </div>
+        </section>
+      </form>
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+</div>
