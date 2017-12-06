@@ -1,0 +1,9 @@
+FROM amellnik/codegen_wasm
+
+# Custom stuff for web integration
+
+RUN ln -s nodejs /usr/bin/node
+COPY /setup.jl /
+
+WORKDIR /
+# Right now this has to run every time the server changes which is annoying

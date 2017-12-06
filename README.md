@@ -35,3 +35,7 @@ If you want to try this yourself don't forget to run `npm install` in the webser
 
 ## TODO:
 * Make sure there's no spaces in the string passed for the `Tuple`.  
+
+
+## General notes
+* Make sure to pass the `libdir` setting to write_js
