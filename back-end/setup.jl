@@ -14,4 +14,4 @@ end
 write_js("unlikely_named_fn.js", unlikely_named_fn, Tuple{Int}, include_init = false, libdir="/libs")
 
 # Not sure what this is doing at the moment...
-write_js("unlikely_named_fn.wasm", unlikely_named_fn, Tuple{Int}, include_init = true, libdir="/libs", flavor = :wasm, emcc_args = "-s WASM=1")
+write_js("unlikely_named_fn.wasm.js", unlikely_named_fn, Tuple{Int}, include_init = true, libdir="/libs", flavor = :wasm, emcc_args = "-s WASM=1")
