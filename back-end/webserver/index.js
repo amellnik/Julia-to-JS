@@ -38,18 +38,15 @@ app.post('/incomming', function(req, res) {
   // Write the provided script to the temporary file
   fs.writeFileSync(name + '.jl', req.body.script);
 
-  // Call the exporter script, which creates a matching .bc temporary file
+  // Call the exporter script, which creates a matching .js file
   console.log('Calling the julia conversion script...')
-  exec('julia exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types);
-
-  // Now use emscripten to generate a .js file
-  console.log('Calling emscripten...')
-  exec('emcc ' + name + '.bc -s LINKABLE=1 -s EXPORT_ALL=1 -o ' + name + '.js');
+  exec('julia /exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types);
 
   // Read the resulting .js file into a javascript variable and return it.
   // In the future we will do something slightly more exciting.
   var js_result = fs.readFileSync(name + '.js', 'utf8');
 
+  console.log("All done, returning the result!")
   res.send(js_result);
 })
 

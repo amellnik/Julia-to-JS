@@ -15,4 +15,5 @@ include(file_name)
 # Need some serious sanitation here
 fn = eval(parse(fn_name))
 
-export_bitcode(string(file_name[1:end-3], ".bc"), fn, types)
+# export_bitcode(string(file_name[1:end-3], ".bc"), fn, types)
+write_js(string(file_name[1:end-3], ".js"), fn, types, include_init = true, libdir="/libs")

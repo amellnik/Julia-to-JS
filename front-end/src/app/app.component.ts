@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   jlCode = "";
   jlFunction = "";
   jlTypes = "";
-  result = "";
+  jsCode = "";
 
 
   ngOnInit() {
@@ -26,27 +26,29 @@ export class AppComponent implements OnInit {
   }
 
   loadDemo() {
-    this.jlCode = `using StaticArrays
-struct X
-    a::Float64
-    b::Float64
-end
-
-function myspecialfun(a)
-    x = SVector(1., 2., a)
-    y = SVector(a, a, 3.)
-    z = X(a, 2a)
-    return sum(x + 2y) - z.b + z.a
+    this.jlCode = `function unexciting(x)
+    return 2*x
 end`;
-  this.jlFunction = `myspecialfun`;
-  this.jlTypes = "Float64";
+  this.jlFunction = `unexciting`;
+  this.jlTypes = "Float32";
   }
 
   submit() {
     return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
-        data => this.result = data,
+        data => this.jsCode = data,
         error => console.log(error),
-        () => console.log(this.result)
+        () => {
+          this.addJsToElement(this.jsCode);
+          console.log("Loaded some sketchy js!")
+        }
       );
+  }
+
+  addJsToElement(src: string): HTMLScriptElement {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = src;
+    document.getElementsByTagName('head')[0].appendChild(script);
+    return script;
   }
 }

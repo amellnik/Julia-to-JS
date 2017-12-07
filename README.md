@@ -31,11 +31,10 @@ Currently it exposes a POST endpoint at `/incomming` that returns the result `.j
 If you want to try this yourself don't forget to run `npm install` in the webserver directory before building the dockerfile.
 
 ## Handy things to run
-* `docker run --rm -it -p 5000:5000 jfs`
+* `docker build -t amellnik/jl2js .`
+* `docker run --rm -it -p 5000:5000 amellnik/jl2js`
+* `docker run --rm -it -v c:/users/alex/documents/julia2js/back-end/work:/wor
+k amellnik/jl2js` but with your own path
 
 ## TODO:
 * Make sure there's no spaces in the string passed for the `Tuple`.  
-
-
-## General notes
-* Make sure to pass the `libdir` setting to write_js
