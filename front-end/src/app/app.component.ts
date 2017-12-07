@@ -47,7 +47,7 @@ end`;
   addJsToElement(src: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = src;
+    script.innerHTML = src;
     document.getElementsByTagName('head')[0].appendChild(script);
     return script;
   }
