@@ -19,7 +19,7 @@ export class ApiService {
   submitForJS(jlCode:string, jlFunction:string, jlTypes:string) {
     let body = `script=${encodeURIComponent(jlCode)}&function=${encodeURIComponent(jlFunction)}&types=${encodeURIComponent(jlTypes)}`;
     return this.http.post(environment.api_base + '/incomming', body, this.options)
-      .map(res => res.text())
+      .map(res => res.json())
   }
 
 

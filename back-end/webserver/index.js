@@ -40,15 +40,24 @@ app.post('/incomming', function(req, res) {
 
   // Call the exporter script, which creates a matching .js file
   console.log('Calling the julia conversion script...')
-  exec('julia /exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types);
+  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types);
 
   // Read the resulting .js file into a javascript variable and return it.
   // In the future we will do something slightly more exciting.
   var js_result = fs.readFileSync(name + '.js', 'utf8');
 
   console.log("All done, returning the result!")
-  res.send(js_result);
+  res.json({data: js_result});
 })
+
+// Error handling middleware
+app.use(function(err, req, res, next) {
+  // Do logging and user-friendly error message display
+  console.error(err.toString());
+  res.status = 200;
+  res.json({error: err.toString()});
+});
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

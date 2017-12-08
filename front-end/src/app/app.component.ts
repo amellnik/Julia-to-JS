@@ -18,7 +18,12 @@ export class AppComponent implements OnInit {
   jlCode = "";
   jlFunction = "";
   jlTypes = "";
+  serverResponse:any;
   jsCode = "";
+  serverError = "";
+  jsFunctionCall = "";
+  jsResult = "";
+  waiting_on_API = false;
 
 
   ngOnInit() {
@@ -26,28 +31,55 @@ export class AppComponent implements OnInit {
   }
 
   loadDemo() {
-    this.jlCode = `function unexciting(x)
+    this.jlCode = `function my_fun(x)
     return 2*x
 end`;
-  this.jlFunction = `unexciting`;
-  this.jlTypes = "Float32";
+    this.jlFunction = "my_fun";
+    this.jlTypes = "Float32";
+    this.jsFunctionCall="_my_fun(4)"
   }
 
   submit() {
+    // Get rid of any existing code including the injected portion
+    this.jsCode = "";
+    this.serverError = "";
+    if (document.contains(document.getElementById("injected-js"))) {
+      document.getElementById("injected-js").remove();
+    }
+
+    this.waiting_on_API = true;
     return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
-        data => this.jsCode = data,
+        data => this.serverResponse = data,
         error => console.log(error),
         () => {
-          this.addJsToElement(this.jsCode);
-          console.log("Loaded some sketchy js!")
+          this.afterQuery();
         }
       );
+  }
+
+  afterQuery() {
+    this.waiting_on_API = false;
+    // Check response to see if there was a conversion error
+    if (this.serverResponse.hasOwnProperty('error')) {
+      this.serverError = this.serverResponse.error;
+      console.log(this.serverError);
+      // Show server error here
+    } else {
+      this.jsCode = this.serverResponse.data;
+      this.addJsToElement(this.jsCode);
+      console.log("Loaded some sketchy js!")
+    }
+  }
+
+  run_js() {  // No clue if this sort of thing works
+    this.jsResult = '' + eval(this.jsFunctionCall);
   }
 
   addJsToElement(src: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.innerHTML = src;
+    script.id = "injected-js";
     document.getElementsByTagName('head')[0].appendChild(script);
     return script;
   }
