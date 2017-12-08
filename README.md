@@ -31,10 +31,17 @@ Currently it exposes a POST endpoint at `/incomming` that returns the result `.j
 If you want to try this yourself don't forget to run `npm install` in the webserver directory before building the dockerfile.
 
 ## Handy things to run
-* `docker build -t amellnik/jl2js .`
-* `docker run --rm -it -p 5000:5000 amellnik/jl2js`
-* `docker run --rm -it -v c:/users/alex/documents/julia2js/back-end/work:/wor
-k amellnik/jl2js` but with your own path
+* Normal use:
+ * `docker build -t amellnik/jl2js .`
+ * `docker run --rm -it -p 5000:5000 amellnik/jl2js`
+* Debug work:
+ * `docker run --rm -it -v c:/users/alex/documents/julia2js/back-end/work:/wor
+k amellnik/jl2js` but with your own path if you want to pass files around (probably need to set entrypoint)
+* Deploying to heroku:
+ * `docker tag amellnik/jl2js registry.heroku.com/julia-2-js/web`
+ * `docker push registry.heroku.com/julia-2-js/web`
+
+
 
 ## TODO:
 * Make sure there's no spaces in the string passed for the `Tuple`.  

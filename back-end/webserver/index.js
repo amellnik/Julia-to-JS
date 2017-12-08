@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://localhost:4200'];
+  var allowedOrigins = ['http://localhost:4200', 'http://alex.mellnik.net'];
   var origin = req.headers.origin;
   if (origin) {console.log('Origin: ' + origin)}
   if (allowedOrigins.indexOf(origin) > -1) {
@@ -22,8 +22,11 @@ app.use(function(req, res, next) {
   return next();
 })
 
-app.set('port', (process.env.PORT || 5000));
+var port = process.env.PORT || 5000;
 
+app.get('/', function(req, res) {
+  res.send("Looks like things are working OK");
+});
 
 app.post('/incomming', function(req, res) {
   // First make sure we have values for the three required fields
@@ -59,6 +62,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+app.listen(port, function() {
+  console.log('Node app is running on port: ', port);
 });

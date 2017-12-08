@@ -10,4 +10,14 @@ COPY /setup.jl /
 COPY /webserver /webserver
 WORKDIR /libs
 
+# Don't run as root, copy packages over
+ENV JULIA_PKGDIR=/home/myuser/.julia/v0.7
+RUN useradd -ms /bin/bash myuser \
+ && chown -R myuser:myuser /julia/julia \
+ && cp -R /root/. /home/myuser \
+ && chown -R myuser:myuser /home/myuser
+USER myuser
+RUN julia -e 'using ExportWebAssembly'
+
+
 CMD node /webserver/index.js

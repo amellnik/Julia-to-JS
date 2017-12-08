@@ -5,6 +5,7 @@
 
 using ExportWebAssembly
 println(ARGS)
+
 length(ARGS) > 3 && error("Need to supply code, a function name, and types!")
 file_name = ARGS[1]
 fn_name = ARGS[2]
