@@ -1,4 +1,4 @@
-FROM amellnik/codegen_wasm
+FROM amellnik/codegen-wasm
 
 # Custom stuff for web integration
 RUN ln -s nodejs /usr/bin/node
@@ -8,12 +8,11 @@ RUN ln -s nodejs /usr/bin/node
 # For some reason we need to run julia from within this folder in order to get ExportWebAssembly to work right
 COPY /setup.jl /
 COPY /webserver /webserver
-WORKDIR /libs
 
 # Don't run as root, copy packages over
 ENV JULIA_PKGDIR=/home/myuser/.julia/v0.7
 RUN useradd -ms /bin/bash myuser \
- && chown -R myuser:myuser /julia/julia \
+ && chown -R myuser:myuser /julia/bin/julia \
  && cp -R /root/. /home/myuser \
  && chown -R myuser:myuser /home/myuser
 USER myuser

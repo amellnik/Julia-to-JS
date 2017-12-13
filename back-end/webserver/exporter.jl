@@ -19,7 +19,7 @@ try
     fn = eval(parse(fn_name))
 
     # export_bitcode(string(file_name[1:end-3], ".bc"), fn, types)
-    write_js(string(file_name[1:end-3], ".js"), fn, types, include_init = true, libdir="/libs")
+    write_js(string(file_name[1:end-3], ".js"), fn, types, include_init = true)
 catch err
     error_response = string("Julia conversion error:\n\n", err)
     error(error_response)

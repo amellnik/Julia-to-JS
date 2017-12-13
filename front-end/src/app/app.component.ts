@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     return 2*x
 end`;
     this.jlFunction = "my_fun";
-    this.jlTypes = "Float32";
+    this.jlTypes = "Int32";
     this.jsFunctionCall="_my_fun(4)"
   }
 

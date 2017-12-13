@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://localhost:4200', 'http://alex.mellnik.net'];
+  var allowedOrigins = ['http://localhost:4200', 'https://alex.mellnik.net'];
   var origin = req.headers.origin;
   if (origin) {console.log('Origin: ' + origin)}
   if (allowedOrigins.indexOf(origin) > -1) {

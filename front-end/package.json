@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prod": "ng build --prod --base-href ./julia-2-js"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "clarity-icons": "^0.10.9",
     "clarity-ui": "^0.10.9",
     "core-js": "^2.4.1",
+    "prismjs": "^1.9.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },

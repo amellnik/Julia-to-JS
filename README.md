@@ -38,7 +38,7 @@ If you want to try this yourself don't forget to run `npm install` in the webser
  * `docker run --rm -it -v c:/users/alex/documents/julia2js/back-end/work:/wor
 k amellnik/jl2js` but with your own path if you want to pass files around (probably need to set entrypoint)
 * Deploying to heroku:
- * `docker tag amellnik/jl2js registry.heroku.com/julia-2-js/web`
+ * `docker tag amellnik/julia-2-js registry.heroku.com/julia-2-js/web`
  * `docker push registry.heroku.com/julia-2-js/web`
 
 
