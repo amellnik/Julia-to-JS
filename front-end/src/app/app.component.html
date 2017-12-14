@@ -43,10 +43,14 @@
 
                 </section>
               </form>
+
             </div>
             <div class="card-footer">
-               <div class="progress loop" *ngIf="waiting_on_API"><progress></progress></div>
-               <button class="btn btn-sm btn-link" (click)="submit()">Convert to javascript!</button>
+              <div class="progress loop bug-fix"  *ngIf="waiting_on_API"><progress></progress>
+              </div>
+               <button class="btn btn-sm btn-link" (click)="submit()" *ngIf="(!jsCode)&&(!serverError)">Convert to javascript!</button>
+               <!-- <button class="btn btn-sm btn-link" (click)="submit()" >Convert to javascript!</button> -->
+               <span *ngIf="jsCode||serverError">Due to an unresolved bug, you need to reload the page before running another conversion -- sorry!</span>
             </div>
           </div>
         </div>

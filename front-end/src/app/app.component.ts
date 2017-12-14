@@ -44,7 +44,9 @@ end`;
     this.jsCode = "";
     this.serverError = "";
     if (document.contains(document.getElementById("injected-js"))) {
+      console.log("Removing old js code")
       document.getElementById("injected-js").remove();
+      var Module = false;
     }
 
     this.waiting_on_API = true;
