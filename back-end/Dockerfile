@@ -6,17 +6,24 @@ RUN ln -s nodejs /usr/bin/node
 # Install additional Julia libraries we want to let people test here?
 
 # For some reason we need to run julia from within this folder in order to get ExportWebAssembly to work right
-COPY /setup.jl /
 COPY /webserver /webserver
 
-# Don't run as root, copy packages over
-ENV JULIA_PKGDIR=/home/myuser/.julia/v0.7
-RUN useradd -ms /bin/bash myuser \
- && chown -R myuser:myuser /julia/bin/julia \
- && cp -R /root/. /home/myuser \
- && chown -R myuser:myuser /home/myuser
-USER myuser
-RUN julia -e 'using ExportWebAssembly'
+RUN julia /webserver/warm-up.jl
 
+ENV JULIA_PKGDIR=/packages
 
-CMD node /webserver/index.js
+# RUN useradd -ms /bin/bash rando
+
+RUN mkdir /packages \
+ && cp -R /root/.julia/v0.7/. /packages \
+ && chmod -R a+rwx /packages \
+ && cp ~/.emscripten / \
+ && chmod a+rwx /.emscripten
+
+# USER rando
+
+# After the container starts, the current user needs to copy
+# /.emscripten to ~/ -- this is why we now use a starup script
+# rather than running node directly.  
+
+ CMD /bin/bash /webserver/startup.sh
