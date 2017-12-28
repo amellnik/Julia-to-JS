@@ -2,3 +2,16 @@
 .progress.loop.bug-fix::after {
   top: 0;
 }
+
+textarea {
+  font-family: monospace,monospace;
+}
+
+input[type=text] {
+  font-family: monospace,monospace;
+}
+
+.CodeMirror span {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

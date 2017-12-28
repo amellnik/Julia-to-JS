@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ApiService } from './api.service';
+import 'codemirror/mode/julia/julia';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,14 @@ export class AppComponent implements OnInit {
     private http: Http,
     private ApiService: ApiService
   ) {}
+
+  cmConfig = {
+    mode: 'julia',
+    indentWithTabs: true,
+    lineNumbers: true
+    // theme: 'neat',
+    // addModeClass: true
+  };
 
   jlCode = "";
   jlFunction = "";

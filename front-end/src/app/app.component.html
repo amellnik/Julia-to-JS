@@ -35,8 +35,10 @@
                       <input type="text" id="aForm_2" placeholder="Float32,Int32" size="25" [(ngModel)]="jlTypes" [ngModelOptions]="{standalone: true}">
                     </div>
                     <div class="col-xs-8">
-                      <label for="jlInput">Julia code:</label>
-                      <textarea id="jlInput" rows="10" [(ngModel)]="jlCode" [ngModelOptions]="{standalone: true}" style="font-family: monospace,monospace;" placeholder="my_fun(x) = 2*x"></textarea>
+                      <codemirror [(ngModel)]="jlCode"
+                        [config]="cmConfig"
+                        [ngModelOptions]="{standalone: true}">
+                      </codemirror>
                     </div>
 
                   </div>
@@ -70,9 +72,12 @@
                  Function call
               </div>
               <div class="card-block">
-                <div class="card-text">
+                <!-- <div class="card-text">
                   <textarea id="jlInput" rows="5" [(ngModel)]="jsFunctionCall" [ngModelOptions]="{standalone: true}" placeholder="_my_fun(4)" style="font-family: monospace,monospace;"></textarea>
-                </div>
+                </div> -->
+                <codemirror [(ngModel)]="jsFunctionCall"
+                  [config]="cmConfig">
+                </codemirror>
               </div>
               <div class="card-footer">
                  <button class="btn btn-sm btn-link" (click)="run_js()">Run it!</button>
@@ -86,7 +91,10 @@
               </div>
               <div class="card-block">
                 <div class="card-text">
-                  <pre *ngIf="jsResult"><code>{{jsResult}}</code></pre>
+                  <!-- <pre *ngIf="jsResult"><code>{{jsResult}}</code></pre> -->
+                  <codemirror [(ngModel)]="jsResult"
+                    [config]="{}">
+                  </codemirror>
                 </div>
               </div>
 

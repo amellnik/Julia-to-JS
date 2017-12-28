@@ -22,6 +22,7 @@
         "../node_modules/clarity-ui/clarity-ui.min.css",
         "../node_modules/clarity-icons/clarity-icons.min.css",
         "../node_modules/prismjs/themes/prism-solarizedlight.css",
+        "../node_modules/codemirror/lib/codemirror.css",
         "styles.css"
       ],
       "scripts": [
