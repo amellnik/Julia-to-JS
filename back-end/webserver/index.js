@@ -43,7 +43,7 @@ app.post('/incomming', function(req, res) {
 
   // Call the exporter script, which creates a matching .js file
   console.log('Calling the julia conversion script...')
-  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types);
+  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types, {stdio: 'inherit'});
 
   // Read the resulting .js file into a javascript variable and return it.
   // In the future we will do something slightly more exciting.

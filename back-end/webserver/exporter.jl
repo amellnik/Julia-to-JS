@@ -3,7 +3,8 @@
 # 2) The name of the function
 # 3) A string with a list of types for the arguments of the function (like "Float64, Int64")
 
-using ExportWebAssembly
+loadtime = @elapsed using ExportWebAssembly
+println("Package load time: ", loadtime)
 println(ARGS)
 
 length(ARGS) > 3 && error("Need to supply code, a function name, and types!")
@@ -19,7 +20,8 @@ try
     fn = eval(parse(fn_name))
 
     # export_bitcode(string(file_name[1:end-3], ".bc"), fn, types)
-    write_js(string(file_name[1:end-3], ".js"), fn, types, include_init = true)
+    fntime = @elapsed write_js(string(file_name[1:end-3], ".js"), fn, types, include_init = true)
+    println("write_js call time: ", fntime)
 catch err
     error_response = string("Julia conversion error:\n\n", err)
     error(error_response)

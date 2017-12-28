@@ -5,8 +5,8 @@ println(VERSION)
 using ExportWebAssembly
 
 # Make a single call to warm up
-function my_fun(a)
-    return 2*a
+function fib(n)
+    n < 2 ? 1 : fib(n-1) + fib(n-2)
 end
 
-write_js("bleh.js", my_fun, Tuple{Int32}, include_init = true)
+write_js("bleh.js", fib, Tuple{Int32}, include_init = true)
