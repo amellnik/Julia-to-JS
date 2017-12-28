@@ -118,9 +118,10 @@ end`;
     this.jsCode = "";
     this.serverError = "";
     if (document.contains(document.getElementById("injected-js"))) {
-      console.log("Removing old js code")
+      console.log("Removing old js code");
       document.getElementById("injected-js").remove();
-      var Module = false;
+      // Also delete the global variables for it
+      window['Module'] = {};
     }
 
     this.waiting_on_API = true;
