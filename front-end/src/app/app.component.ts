@@ -22,21 +22,21 @@ export class AppComponent implements OnInit {
   jsCode = "";
   serverError = "";
   jsFunctionCall = "";
-  jsResult = "";
+  jsResult = "\n";
   waiting_on_API = false;
 
 
   ngOnInit() {
-
+    this.loadDemo();
   }
 
   loadDemo() {
-    this.jlCode = `function my_fun(x)
-    return 2*x
+    this.jlCode = `function fib(n)
+    n < 2 ? 1 : fib(n-1) + fib(n-2)
 end`;
-    this.jlFunction = "my_fun";
+    this.jlFunction = "fib";
     this.jlTypes = "Int32";
-    this.jsFunctionCall="_my_fun(4)"
+    this.jsFunctionCall="_fib(6)"
   }
 
   submit() {
@@ -52,7 +52,7 @@ end`;
     this.waiting_on_API = true;
     return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
         data => this.serverResponse = data,
-        error => console.log(error),
+        error => this.handleServerError(error),
         () => {
           this.afterQuery();
         }
@@ -64,13 +64,21 @@ end`;
     // Check response to see if there was a conversion error
     if (this.serverResponse.hasOwnProperty('error')) {
       this.serverError = this.serverResponse.error;
-      console.log(this.serverError);
+      console.log(this.handleServerError);
       // Show server error here
     } else {
       this.jsCode = this.serverResponse.data;
       this.addJsToElement(this.jsCode);
       console.log("Loaded some sketchy js!")
     }
+  }
+
+  handleServerError(error: any) {
+    console.log(error);
+    this.waiting_on_API = false;
+    this.serverError = `Unexciting server error.  If it's timeout related, try again in ~30 sec.
+
+    ` + error._body.toString();
   }
 
   run_js() {  // No clue if this sort of thing works

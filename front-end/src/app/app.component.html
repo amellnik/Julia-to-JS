@@ -10,12 +10,12 @@
   <div class="content-container">
     <div class="content-area">
 
-      <h1>Here's how this works</h1>
+      <h1>Convert Julia to Javascript</h1>
       <p>
-        Write Julia code to define a function in the box below and supply the name of the function as well as the types of the arguments.  Click the submit button and we'll see if we can convert it into javascript.
+        Write <a href="http://julialang.org">Julia</a> code to define a function in the box below and supply the name of the function as well as the types of the arguments.  Click the submit button and we'll see if we can convert it into javascript.  If you're not feeling creative you can use the default values.
       </p>
       <p>
-        If you're not feeling creative you can also click <a href="javascript://" (click)="loadDemo()">here</a> to load a simple example.
+        You can read more about what's going on at the <a href="https://github.com/amellnik/Julia-to-JS">GitHub project page</a>.   Currently there's not any modules available other than <code>Base</code>.
       </p>
 
       <div class="row">
@@ -71,7 +71,7 @@
               </div>
               <div class="card-block">
                 <div class="card-text">
-                  <textarea id="jlInput" rows="10" [(ngModel)]="jsFunctionCall" [ngModelOptions]="{standalone: true}" placeholder="_my_fun(4)" style="font-family: monospace,monospace;"></textarea>
+                  <textarea id="jlInput" rows="5" [(ngModel)]="jsFunctionCall" [ngModelOptions]="{standalone: true}" placeholder="_my_fun(4)" style="font-family: monospace,monospace;"></textarea>
                 </div>
               </div>
               <div class="card-footer">
