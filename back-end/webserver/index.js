@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var tmp = require('tmp');
 var fs = require("fs");
-var exec = require('child_process').execSync;
+var exec = require('child_process').exec;
 
 
 var app = express();
@@ -28,6 +28,7 @@ app.get('/', function(req, res) {
   res.send("Looks like things are working OK");
 });
 
+
 app.post('/incomming', function(req, res) {
   // First make sure we have values for the three required fields
   // script, function, types
@@ -42,15 +43,44 @@ app.post('/incomming', function(req, res) {
   fs.writeFileSync(name + '.jl', req.body.script);
 
   // Call the exporter script, which creates a matching .js file
+
+  //  Need to capture the STDIO output somehow and record it for later use?
+
   console.log('Calling the julia conversion script...')
-  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types, {stdio: 'inherit'});
+  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types, {stdio: 'inherit'}, function(error, stdout, stderr) {
+    console.log('Stdout from export script:\n' + stdout);
+    if (error) {
+      console.log("Someone's request caused some problems...")
+      fs.writeFile(name + '.log', error);
+    } else {
+      console.log('Looks like a conversion script just finished!')
+    }
+  });
 
-  // Read the resulting .js file into a javascript variable and return it.
-  // In the future we will do something slightly more exciting.
-  var js_result = fs.readFileSync(name + '.js', 'utf8');
+  res.status(202).json({filename: name});
 
-  console.log("All done, returning the result!")
-  res.json({data: js_result});
+})
+
+app.post('/results', function(req, res) {
+  console.log('FileName: ' + req.body.filename);
+  (req.body.filename) || res.status(500).send('You need to provide a filename!');
+  var name = req.body.filename;
+
+  // Is there a resulting .js file?
+  if (fs.existsSync(name + '.js')) {
+    // Read the resulting .js file into a javascript variable and return it.
+    var js_result = fs.readFileSync(name + '.js', 'utf8');
+    console.log("All done, returning the result!")
+    res.json({ready: true, data: js_result});
+  } else if (fs.existsSync(name + '.log')) {
+    // Something went wrong, so let's return some useful error logs
+    var error_log = fs.readFileSync(name + '.log', 'utf8');
+    res.json({ready: true, error: error_log});
+  } else {
+    console.log("Someone wants a response for request: " + name + " but it's not ready yet...")
+    res.status(200).json({ready: false});
+  }
+
 })
 
 // Error handling middleware

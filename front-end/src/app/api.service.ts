@@ -22,6 +22,12 @@ export class ApiService {
       .map(res => res.json())
   }
 
+  checkForResult(filename:string) {
+    let body = `filename=${encodeURIComponent(filename)}`;
+    return this.http.post(environment.api_base + '/results', body, this.options)
+      .map(res => res.json())
+  }
+
 
 
 }
