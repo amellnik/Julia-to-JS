@@ -98,6 +98,7 @@ export class AppComponent implements OnInit {
   jsFunctionCall = "";
   jsResult = "\n";
   waiting_on_API = false;
+  filename = "";
 
 
   ngOnInit() {
@@ -113,6 +114,10 @@ end`;
     this.jsFunctionCall="_fib(6)"
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   submit() {
     // Get rid of any existing code including the injected portion
     this.jsCode = "";
@@ -126,13 +131,35 @@ end`;
 
     this.waiting_on_API = true;
     return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
+        data => this.filename = data.filename,
+        error => this.handleServerError(error),
+        () => this.runChecks(30)
+      );
+  }
+
+  runChecks(retries:number) {
+    console.log("Checking server, retries left: " + retries)
+    if (retries == 0 ) {
+      console.log("Ran out of retries -- something went terribly wrong...");
+      // TODO: Raise an alert here
+      return 0;
+    }
+    this.ApiService.checkForResult(this.filename).subscribe(
         data => this.serverResponse = data,
         error => this.handleServerError(error),
         () => {
-          this.afterQuery();
+          if (this.serverResponse.ready) {
+            this.afterQuery();
+          } else {
+            this.sleep(5000).then(() => {
+              this.runChecks(retries-1);
+            })
+          }
         }
       );
   }
+
+
 
   afterQuery() {
     this.waiting_on_API = false;

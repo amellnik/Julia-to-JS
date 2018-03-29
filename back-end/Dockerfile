@@ -8,6 +8,7 @@ RUN ln -s nodejs /usr/bin/node
 # For some reason we need to run julia from within this folder in order to get ExportWebAssembly to work right
 COPY /webserver /webserver
 
+# Is this really necessary?  Probably not.  
 RUN julia /webserver/warm-up.jl
 
 ENV JULIA_PKGDIR=/packages
@@ -24,6 +25,6 @@ RUN mkdir /packages \
 
 # After the container starts, the current user needs to copy
 # /.emscripten to ~/ -- this is why we now use a starup script
-# rather than running node directly.  
+# rather than running node directly.
 
  CMD /bin/bash /webserver/startup.sh
