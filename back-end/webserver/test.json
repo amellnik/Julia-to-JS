@@ -1,0 +1,5 @@
+{
+  "script": "function fib(n) \n n < 2 ? 1 : fib(n-1) + fib(n-2) \n end",
+  "function": "fib",
+  "types": "Int32"
+}

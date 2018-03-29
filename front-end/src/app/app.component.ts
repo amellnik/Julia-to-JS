@@ -17,14 +17,6 @@ export class AppComponent implements OnInit {
     private ApiService: ApiService
   ) {
     ClarityIcons.add({"julia": `<svg
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:cc="http://creativecommons.org/ns#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns="http://www.w3.org/2000/svg"
-     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-     xml:space="preserve"
      version="1.1"
      viewBox="0 0 104.33789 96.837892"
      id="svg2"
@@ -35,30 +27,7 @@ export class AppComponent implements OnInit {
        id="metadata32"><rdf:RDF><cc:Work
            rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
              rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-       id="defs30" /><sodipodi:namedview
-       pagecolor="#ffffff"
-       bordercolor="#666666"
-       borderopacity="1"
-       objecttolerance="10"
-       gridtolerance="10"
-       guidetolerance="10"
-       inkscape:pageopacity="0"
-       inkscape:pageshadow="2"
-       inkscape:window-width="640"
-       inkscape:window-height="480"
-       id="namedview28"
-       showgrid="false"
-       inkscape:zoom="0.81122676"
-       inkscape:cx="47.375458"
-       inkscape:cy="41.105796"
-       inkscape:window-x="623"
-       inkscape:window-y="655"
-       inkscape:window-maximized="0"
-       inkscape:current-layer="svg2"
-       fit-margin-top="4"
-       fit-margin-left="4"
-       fit-margin-right="4"
-       fit-margin-bottom="4" /><circle
+       id="defs30" /><circle
        cx="25.918945"
        cy="-70.918945"
        r="20"
@@ -130,7 +99,7 @@ end`;
     }
 
     this.waiting_on_API = true;
-    return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
+    return this.ApiService.submitForJS(this.jlCode.replace(/\n/g, "\n"), this.jlFunction, this.jlTypes).subscribe(
         data => this.filename = data.filename,
         error => this.handleServerError(error),
         () => this.runChecks(30)
