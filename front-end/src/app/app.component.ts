@@ -110,7 +110,8 @@ end`;
     console.log("Checking server, retries left: " + retries)
     if (retries == 0 ) {
       console.log("Ran out of retries -- something went terribly wrong...");
-      // TODO: Raise an alert here
+      this.waiting_on_API = false;
+      this.serverError = "The server never created a response for this request -- something must have gone terribly wrong."
       return 0;
     }
     this.ApiService.checkForResult(this.filename).subscribe(
