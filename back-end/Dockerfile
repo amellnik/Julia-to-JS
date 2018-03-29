@@ -4,12 +4,12 @@ FROM amellnik/codegen-wasm
 RUN ln -s nodejs /usr/bin/node
 
 # Install additional Julia libraries we want to let people test here?
+RUN julia -e 'Pkg.add("JSON")'
 
 # For some reason we need to run julia from within this folder in order to get ExportWebAssembly to work right
 COPY /webserver /webserver
 
-# Is this really necessary?  Probably not.  
-RUN julia /webserver/warm-up.jl
+RUN julia /webserver/exporter.jl /webserver/test.json
 
 ENV JULIA_PKGDIR=/packages
 

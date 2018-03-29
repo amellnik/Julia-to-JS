@@ -37,17 +37,17 @@ app.post('/incomming', function(req, res) {
   console.log('Types: ' + req.body.types);
   (req.body.script && req.body.function && req.body.types ) || res.status(500).send('You need to provide a script, function and types!')
   var name = tmp.tmpNameSync();
-  console.log('Created temporary filename: ', name + '.jl');
+  console.log('Created temporary filename: ', name + '.json');
 
   // Write the provided script to the temporary file
-  fs.writeFileSync(name + '.jl', req.body.script);
+  fs.writeFileSync(name + '.json', JSON.stringify(req.body));
 
   // Call the exporter script, which creates a matching .js file
 
   //  Need to capture the STDIO output somehow and record it for later use?
 
   console.log('Calling the julia conversion script...')
-  exec('julia /webserver/exporter.jl ' + name + '.jl ' + req.body.function + ' ' + req.body.types, {stdio: 'inherit'}, function(error, stdout, stderr) {
+  exec('julia /webserver/exporter.jl \"' + name + '.json\"', {stdio: 'inherit'}, function(error, stdout, stderr) {
     console.log('Stdout from export script:\n' + stdout);
     if (error) {
       console.log("Someone's request caused some problems...")
