@@ -133,7 +133,7 @@ end`;
     return this.ApiService.submitForJS(this.jlCode, this.jlFunction, this.jlTypes).subscribe(
         data => this.filename = data.filename,
         error => this.handleServerError(error),
-        () => this.runChecks(20)
+        () => this.runChecks(30)
       );
   }
 

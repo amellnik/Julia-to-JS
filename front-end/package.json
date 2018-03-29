@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --prod --base-href ./julia-2-js"
+    "prod": "ng build --prod"
   },
   "private": true,
   "dependencies": {
