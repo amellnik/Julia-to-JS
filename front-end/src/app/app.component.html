@@ -1,114 +1,19 @@
 <div class="main-container">
   <header class="header header-6">
     <div class="branding">
-      <a href="javascript://" class="nav-link">
+      <a routerLink="/" class="nav-link">
         <clr-icon shape="julia"></clr-icon>
         <span class="title">Julia to JS</span>
       </a>
     </div>
+    <div class="header-nav">
+        <a routerLink="/export-wasm" class="nav-link nav-text">ExportWebassembly.jl</a>
+        <a routerLink="/charlotte" class="nav-link nav-text">Charlotte.jl</a>
+    </div>
   </header>
   <div class="content-container">
     <div class="content-area">
-
-      <h1>Convert Julia to Javascript</h1>
-      <p>
-        Write <a href="http://julialang.org">Julia</a> code to define a function in the box below and supply the name of the function as well as the types of the arguments.  Click the submit button and we'll see if we can convert it into javascript.  If you're not feeling creative you can use the default values.  This typically takes ~90 seconds.
-      </p>
-      <p>
-        You can read more about what's going on at the <a href="https://github.com/amellnik/Julia-to-JS">GitHub project page</a>.   Currently there's not any modules available other than <code>Base</code>.
-      </p>
-
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="card">
-            <div class="card-header">
-               Julia inputs
-            </div>
-            <div class="card-block">
-              <form>
-                <section class="form-block">
-                  <div class="form-group row">
-                    <div class="col-xs-4">
-                      <label for="aForm_1">Function name & argument types:</label>
-                      <input type="text" id="aForm_1" placeholder="myfun" size="25" [(ngModel)]="jlFunction" [ngModelOptions]="{standalone: true}">
-
-                      <input type="text" id="aForm_2" placeholder="Float32,Int32" size="25" [(ngModel)]="jlTypes" [ngModelOptions]="{standalone: true}">
-                    </div>
-                    <div class="col-xs-8">
-                      <codemirror [(ngModel)]="jlCode"
-                        [config]="cmConfig"
-                        [ngModelOptions]="{standalone: true}">
-                      </codemirror>
-                    </div>
-
-                  </div>
-
-                </section>
-              </form>
-
-            </div>
-            <div class="card-footer">
-              <div class="progress loop bug-fix"  *ngIf="waiting_on_API"><progress></progress>
-              </div>
-               <button class="btn btn-sm btn-link" (click)="submit()" >Convert to javascript!</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="jsCode!=''">  <!-- This div is for showing results -->
-        <h3>Success!</h3>
-        <p>
-          Looks like you have some javascript!  To see if it works, try entering a function call in the box below.  Note that your function name needs to be preceeded with an underscore.  You can also try calling the function from the javascript console in your browser.  The <a href="https://kripken.github.io/emscripten-site/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">Emscripten documentation</a> has details on other ways you can call the function if you don't like underscores.
-        </p>
-        <div class="row">
-          <div class="col-xs-8">
-            <div class="card">
-              <div class="card-header">
-                 Function call
-              </div>
-              <div class="card-block">
-                <!-- <div class="card-text">
-                  <textarea id="jlInput" rows="5" [(ngModel)]="jsFunctionCall" [ngModelOptions]="{standalone: true}" placeholder="_my_fun(4)" style="font-family: monospace,monospace;"></textarea>
-                </div> -->
-                <codemirror [(ngModel)]="jsFunctionCall"
-                  [config]="cmConfig">
-                </codemirror>
-              </div>
-              <div class="card-footer">
-                 <button class="btn btn-sm btn-link" (click)="run_js()">Run it!</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-4">
-            <div class="card">
-              <div class="card-header">
-                 Result
-              </div>
-              <div class="card-block">
-                <div class="card-text">
-                  <!-- <pre *ngIf="jsResult"><code>{{jsResult}}</code></pre> -->
-                  <codemirror [(ngModel)]="jsResult"
-                    [config]="{}">
-                  </codemirror>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="serverError">
-        <h3>Oh no!</h3>
-        <p>
-          There was an error with the conversion.  See the cryptic error log below (you can probably ignore warnings):
-        </p>
-        <pre><code>{{serverError}}</code></pre>
-
-      </div>
-
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
