@@ -1,3 +1,15 @@
+<h2>What's this?</h2>
 <p>
-  about works!
+  This application allows you to write Julia code and attempt to convert it into something useable on the web.  Currently it does this through one of two approaches:
+</p>
+<ul>
+  <li>
+    Converting to Javascript via <a href="https://github.com/tshort">Tom Short's</a> <a href="https://github.com/tshort/ExportWebAssembly.jl">ExportWebAssembly.jl</a> and <a href="http://kripken.github.io/emscripten-site/index.html">Emscripten</a>.
+  </li>
+  <li>
+    Converting to WebAssembly via <a href="https://github.com/MikeInnes">Mike Innes's</a> <a href="https://github.com/MikeInnes/Charlotte.jl">Charlotte.jl</a> (with contributions from Tom).  The resulting WebAssembly text format is converted to a corresponding binary file format via the <a href="https://github.com/WebAssembly/wabt">WebAssembly Binary Toolkit</a>.
+  </li>
+</ul>
+<p>
+  After each tool converts julia to either javascript or wasm it loads it into the browser window so that you can test it out.  The API for the Charlotte.jl tool is written in <a href="https://github.com/JuliaWeb/HTTP.jl">HTTP.jl</a> with some help from <a href="https://github.com/amellnik/Joseki.jl">Joseki.jl</a>.
 </p>
