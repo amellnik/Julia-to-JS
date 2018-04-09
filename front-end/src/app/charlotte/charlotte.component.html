@@ -44,6 +44,15 @@
   </div>
 </div>
 
+<div *ngIf="serverError">
+  <h3>Oh no!</h3>
+  <p>
+    There was an error with the conversion.  See the cryptic error log below (you can probably ignore warnings):
+  </p>
+  <pre><code>{{serverError}}</code></pre>
+
+</div>
+
 <div *ngIf="watCode!=''"> <!-- This div is for showing results -->
   <h3>Success!</h3>
   <p>
@@ -80,6 +89,42 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8">
+      <div class="card">
+        <div class="card-header">
+           Function call
+        </div>
+        <div class="card-block">
+
+          <codemirror [(ngModel)]="jsFunctionCall"
+            [config]="cmJS">
+          </codemirror>
+        </div>
+        <div class="card-footer">
+           <button class="btn btn-sm btn-link" (click)="run_js()">Run it!</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="card">
+        <div class="card-header">
+           Result
+        </div>
+        <div class="card-block">
+          <div class="card-text">
+
+            <codemirror [(ngModel)]="jsResult"
+              [config]="{}">
+            </codemirror>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
 </div>

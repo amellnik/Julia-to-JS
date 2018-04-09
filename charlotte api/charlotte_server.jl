@@ -31,9 +31,17 @@ function towasm(req::HTTP.Request)
     end
 
     # How about some sanitization here?
-    eval(parseall(HTTP.URIs.unescapeuri(j["definition"])))
+    try
+        eval(parseall(HTTP.URIs.unescapeuri(j["definition"])))
+    catch err
+        return error_responder(req, string("Error parsing your function definition: ", err))
+    end
     fn = eval(parse(HTTP.URIs.unescapeuri(j["function"])))
-    types = eval(parse(HTTP.URIs.unescapeuri(j["types"])))
+    types = try
+        eval(parse(HTTP.URIs.unescapeuri(j["types"])))
+    catch err
+        return error_responder(req, string("Error parsing your function argument types: ", err))
+    end
 
     # Try to generate wasm and if it doesn't work customize the error message
     gen_mod = try
