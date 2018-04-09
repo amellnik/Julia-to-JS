@@ -18,13 +18,13 @@ export class ExportwasmService {
 
   submitForJS(jlCode:string, jlFunction:string, jlTypes:string) {
     let body = `script=${encodeURIComponent(jlCode)}&function=${encodeURIComponent(jlFunction)}&types=${encodeURIComponent(jlTypes)}`;
-    return this.http.post(environment.api_base + '/incomming', body, this.options)
+    return this.http.post(environment.export_wasm_api_base + '/incomming', body, this.options)
       .map(res => res.json())
   }
 
   checkForResult(filename:string) {
     let body = `filename=${encodeURIComponent(filename)}`;
-    return this.http.post(environment.api_base + '/results', body, this.options)
+    return this.http.post(environment.export_wasm_api_base + '/results', body, this.options)
       .map(res => res.json())
   }
 

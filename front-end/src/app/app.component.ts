@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClarityIcons } from 'clarity-icons';
 import 'codemirror/mode/julia/julia';
 
+import * as CodeMirror from 'codemirror';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit {
        id="circle26"
        style="fill:#aa79c1;stroke:#9558b2;stroke-width:3.83789062;stroke-linecap:butt;stroke-miterlimit:4"
        transform="scale(1,-1)" /></svg>`});
+       
   }
 
 

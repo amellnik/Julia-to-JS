@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { ExportwasmService } from './exportwasm.service';
-import { ClarityIcons } from 'clarity-icons';
 import 'codemirror/mode/julia/julia';
 
 

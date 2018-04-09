@@ -28,7 +28,8 @@
       "scripts": [
         "../node_modules/@webcomponents/custom-elements/custom-elements.min.js",
         "../node_modules/prismjs/prism.js",
-        "../node_modules/prismjs/components/prism-typescript.min.js"
+        "../node_modules/prismjs/components/prism-typescript.min.js",
+        "../src/app/charlotte/libwabt.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  api_base: 'http://localhost:5000',
+  export_wasm_api_base: 'http://localhost:5000',
+  charlotte_api_base: 'http://localhost:7000',
   production: false
 };

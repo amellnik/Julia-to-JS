@@ -1,3 +1,85 @@
+<h2>Convert Julia to WebAssembly</h2>
 <p>
-  charlotte works!
+  Write <a href="http://julialang.org">Julia</a> code to define a function in the box below and supply the name of the function as well as the types of the arguments.  Click the submit button and we'll see if we can convert it WebAssembly.  If you're not feeling creative you can use the default values.
 </p>
+<p>
+  You can read more about what's going on at the <a href="https://github.com/amellnik/Julia-to-JS">GitHub project page</a>.
+</p>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card">
+      <div class="card-header">
+         Julia inputs
+      </div>
+      <div class="card-block">
+        <form>
+          <section class="form-block">
+            <div class="form-group row">
+              <div class="col-xs-4">
+                <label for="aForm_1">Function name & argument types:</label>
+                <input type="text" id="aForm_1" placeholder="myfun" size="25" [(ngModel)]="jlFunction" [ngModelOptions]="{standalone: true}">
+
+                <input type="text" id="aForm_2" placeholder="Float32,Int32" size="25" [(ngModel)]="jlTypes" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="col-xs-8">
+                <codemirror [(ngModel)]="jlCode"
+                  [config]="cmJulia"
+                  [ngModelOptions]="{standalone: true}">
+                </codemirror>
+              </div>
+
+            </div>
+
+          </section>
+        </form>
+
+      </div>
+      <div class="card-footer">
+        <div class="progress loop bug-fix"  *ngIf="waiting_on_API"><progress></progress>
+        </div>
+         <button class="btn btn-sm btn-link" (click)="submit()" >Convert to WebAssembly!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="watCode!=''"> <!-- This div is for showing results -->
+  <h3>Success!</h3>
+  <p>
+    Looks like you have some WebAssembly.  It's shown below both in the text format as well as the binary format (following the example <a href="https://cdn.rawgit.com/WebAssembly/wabt/aae5a4b7/demo/wat2wasm/">here</a>).
+  </p>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="card">
+        <div class="card-header">
+           WebAssembly text format
+        </div>
+        <div class="card-block">
+          <codemirror [(ngModel)]="watCode"
+            [config]="cmWat">
+          </codemirror>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <div class="card">
+        <div class="card-header">
+           WebAssembly binary build log
+        </div>
+        <div class="card-block">
+          <codemirror [(ngModel)]="wasmBuild"
+            [config]="cmPlain">
+          </codemirror>
+        </div>
+        <!-- <div class="card-footer">
+           <button class="btn btn-sm btn-link" (click)="run_js()">Run it!</button>
+        </div> -->
+      </div>
+    </div>
+
+  </div>
+
+</div>
