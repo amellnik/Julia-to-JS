@@ -54,6 +54,11 @@ function towasm(req::HTTP.Request)
     json_responder(req, HTTP.URIs.escapeuri(string(gen_mod)))
 end
 
+# A test endpoint
+function hello(req::HTTP.Request)
+    json_responder(req, "Hello!")
+end
+
 # TODO: is CORS enabled by default?
 
 # Define middleware stack and register one route
@@ -61,10 +66,12 @@ router = HTTP.Router()
 mw = Joseki.default_middleware
 HTTP.register!(router, "POST", "/convert",
     stack(mw, towasm; error_fn=Joseki.error_responder))
+HTTP.register!(router, "GET", "/",
+    stack(mw, hello; error_fn=Joseki.error_responder))
 HTTP.register!(router, "OPTIONS", "*",
     stack(mw, req -> req.response; error_fn=Joseki.error_responder))
 
 # Fire up the server
 s = HTTP.Servers.Server(router)
 p = haskey(ENV, "PORT") ? ENV["PORT"] : 7000
-HTTP.serve(s, ip"127.0.0.1", p; verbose=false)
+HTTP.serve(s, "localhost", p; verbose=false)
