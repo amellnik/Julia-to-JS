@@ -19,6 +19,9 @@ RUN julia -e 'Pkg.clone("https://github.com/amellnik/Joseki.jl.git")' \
 && julia -e 'Pkg.clone("https://github.com/tshort/WebAssembly.jl.git"); Pkg.checkout("WebAssembly", "invoke")' \
 && julia -e 'Pkg.clone("https://github.com/tshort/Charlotte.jl.git"); Pkg.checkout("Charlotte", "invoke")'
 
+# Warm up the server
+RUN julia -e 'using Charlotte, HTTP, Joseki, JSON'
+
 COPY charlotte_server.jl /
 
 CMD julia charlotte_server.jl

@@ -4,3 +4,4 @@ interface NodeModule {
   id: string;
 }
 declare var wabt: any;
+declare var WebAssembly: any;

@@ -94,7 +94,7 @@ export class CharlotteComponent implements OnInit {
   compile() {
     try {
       // This throws an "Property does not exist on type..." error but still works
-      var module = wabt.parseWat('test.wast', this.watCode);
+      var module = wabt['parseWat']('test.wast', this.watCode);
       module.resolveNames();
       module.validate();
       var binaryOutput = module.toBinary({log: true, write_debug_names:true});

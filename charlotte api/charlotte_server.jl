@@ -73,5 +73,5 @@ HTTP.register!(router, "OPTIONS", "*",
 
 # Fire up the server
 s = HTTP.Servers.Server(router)
-p = haskey(ENV, "PORT") ? ENV["PORT"] : 7000
-HTTP.serve(s, "localhost", p; verbose=false)
+p = haskey(ENV, "PORT") ? parse(Int64, ENV["PORT"]) : 7000
+HTTP.serve(s, ip"0.0.0.0", p; verbose=false)
