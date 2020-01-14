@@ -6,7 +6,7 @@ This repository is a harebrained attempt to create a web application that takes 
 
 After each tool converts your julia function to either javascript or wasm it loads the result into the browser window so that you can test it out.  This is all very experimental, so don't be surprised when things don't work.
 
-You can try it [here](http://julia2js.gotfork.net/).    
+You can try it [here](http://julia2js.gotfork.net/).  Note: this project is now using Heroku's free dynos, so the first request will take up to ~40 seconds extra if no one has used the site in a while.  
 
 ## One more thing
 
