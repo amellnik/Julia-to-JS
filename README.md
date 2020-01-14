@@ -1,5 +1,7 @@
 # What's this?
 
+*Note: this project is no longer actively-maintained, and Julia WASM work has advanced significantly since it was put together.  See for example [Keno/julia-wasm](https://github.com/Keno/julia-wasm).*
+
 This repository is a harebrained attempt to create a web application that takes Julia code and converts it to something that can run on the web via either
 * Tom Short's [ExportWebAssembly.jl](https://github.com/tshort/ExportWebAssembly.jl), [CodeGen.jl](https://github.com/tshort/CodeGen.jl) and [Emscripten](http://kripken.github.io/emscripten-site/index.html).  
 * Mike Innes's [Charlotte.jl](https://github.com/MikeInnes/Charlotte.jl) and the [WebAssembly Binary Toolkit](https://github.com/WebAssembly/wabt).
